@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/fragment :: headFragment (pageTitle='Área de login')"></head>
+<body>
+	<div th:replace="fragments/fragment :: header"></div>
+	<section class="container new-section mt-5">
+		<div class="row">
+			<div class="col-4 offset-4">
+				<div class="jumbotron">
+					<h5>Login</h5>
+					<form action="/login" method="POST" th:object="${usuario}">
+						<div class="alert alert-danger" role="alert" th:if="${msg}">
+							<p th:text="${msg}"></p>
+						</div>
+						<div class="form-group">
+							<input type="email" name="email" th:field="*{email}" placeholder="exemple@exemple.com" class="form-control">
+						</div>
+						<div class="form-group">
+							<input type="password" name="senha" class="form-control mt-2" th:field="*{senha}" placeholder="Senha">
+						</div>
+						<div class=""> <small>Não tem cadastro? <a th:href="@{cadastro}">clique aqui!</a></small></div>
+						<div class="form-group mt-2 d-flex flex-row-reverse">
+							<button class="btn btn-outline-success">Submit</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div th:replace="fragments/fragment :: footer"></div>
+</body>
+</html>

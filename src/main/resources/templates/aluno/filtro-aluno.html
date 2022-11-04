@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/fragment::headFragment (pageTitle='Pesquisar alunos')"></head>
+<style>
+
+</style>
+<body>
+	<div th:replace="fragments/fragment :: header"></div>
+	<section class="container new-section">
+		<div class="row mt-3">
+			<div class="col">
+				<h4 class="text-center">Pesquisar alunos</h4>
+			</div>
+		</div>
+		<div class="row mt-2 mb-4">
+			<div class="col">
+				<form method="POST" action="pesquisar-aluno" th:object="${aluno}">
+					<div class="input-group">
+						<input type="text" class="form-control" th:field="*{nome}" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="btn-add">
+  						<button class="btn btn-outline-success" type="submit" id="btn-add">Pesquisar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3">
+				<div class="card">
+<!-- 					<img alt="#" src="img/" class="card-img-top"> -->
+					<a th:href="@{/status/ativo}"><img alt="" src="https://picsum.photos/300/400?random=1" class="card-img-top"></a>
+					<div class="card-body">
+						<h5 class="card-title ps-2">Alunos ativos</h5>
+						<p class="card-text ps-2">Busque por todos os alunos que estão ativos no sistema</p>
+						<a th:href="@{/status/ativo}" class="btn btn-outline-info">Clique aqui</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-3">
+				<div class="card">
+<!-- 					<img alt="#" src="img/" class="card-img-top"> -->
+					<img alt="" src="https://picsum.photos/300/400?random=2" class="card-img-top">
+					<div class="card-body">
+						<h5 class="card-title ps-2">Alunos inativos</h5>
+						<p class="card-text ps-2">Busque por todos os alunos que estão inativos no sistema</p>
+						<a th:href="@{/status/inativo}" class="btn btn-outline-info">Clique aqui</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-3">
+				<div class="card">
+<!-- 					<img alt="#" src="img/" class="card-img-top"> -->
+					<img alt="" src="https://picsum.photos/300/400?random=3" class="card-img-top">
+					<div class="card-body">
+						<h5 class="card-title ps-2">Alunos cancelados</h5>
+						<p class="card-text ps-2">Busque por todos os alunos que estão cancelados no sistema</p>
+						<a th:href="@{/status/cancelado}" class="btn btn-outline-info">Clique aqui</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-3">
+				<div class="card">
+<!-- 					<img alt="#" src="img/" class="card-img-top"> -->
+					<img alt="" src="https://picsum.photos/300/400" class="card-img-top">
+					<div class="card-body">
+						<h5 class="card-title ps-2">Alunos trancados</h5>
+						<p class="card-text ps-2">Busque por todos os alunos que estão trancados no sistema</p>
+						<a class="btn btn-outline-info" th:href="@{/status/trancado}">Clique aqui</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div th:replace="fragments/fragment :: footer"></div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/fragment::headFragment (pageTitle='Criação de alunos')"></head>
+<style>
+	.main-btn{
+		min-width: 200px;
+	}
+	.disabled-input{
+		pointer-events: none;
+		background-color: #CDCDCD;
+	}
+</style>
+<body>
+	<div th:replace="fragments/fragment :: header"></div>
+	<section class="container new-section">
+		<div class="row mt-5">
+			<div class="col-8 offset-2 jumbotron">
+				<form th:action="*{id} ?'/editar':'/insertAlunos'" method="POST" th:object="${aluno}" >
+					<div th:if="*{id}">
+						<input type="hidden" th:field="*{id}">
+					</div>	
+					<div class="row">
+						<div class="col">
+							<h4 class="mb-3 text-center">Criar registro de aluno</h4>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-8 form-group offset-2">
+							<label for="nome">Nome do aluno</label>
+							<input type="text" id="nome" name="nome" th:field="*{nome}" class="form-control" value="" placeholder="nome do aluno">
+							<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('nome')}">
+								<label class="validation-message" th:errors="*{nome}"></label>
+							</div>
+						</div>
+					</div>
+					<div class="row mt-2">
+						<div class="col-4 form-group offset-2">
+							<label for="curso">Selecione o curso</label>
+							<select class="form-control" id="curso" th:field="*{curso}">
+								<option disabled selected value="">Selecione um curso</option>
+								<option th:each="cursosOpt: ${T(br.com.academy.Enums.Curso).values()}" th:value="${cursosOpt}" th:text="${cursosOpt.curso}"></option>
+							</select>
+							<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('curso')}">
+								<label class="validation-message" th:errors="*{curso}"></label>
+							</div>
+						</div>
+						<div class="col-4 form-group">
+							<label for="curso">Selecione o turno</label>
+							<select class="form-control" th:field="*{turno}">
+								<option disabled selected value="">Selecione o turno</option>
+								<option th:each="turnoOpt: ${T(br.com.academy.Enums.Turno).values()}" th:value="${turnoOpt}" th:text="${turnoOpt.turno}"></option>
+							</select>
+							<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('turno')}">
+								<label class="validation-message" th:errors="*{turno}"></label>
+							</div>
+						</div>
+					</div>
+					<div class="row mt-3">
+						<div class="col-4 form-group offset-2">
+							<select class="form-control" th:field="*{status}">
+								<option disabled selected value="">Selecione o status</option>
+								<option th:each="statusOpt: ${T(br.com.academy.Enums.Status).values()}" th:value="${statusOpt}" th:text="${statusOpt.status}"></option>
+							</select>
+							<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('status')}">
+								<label class="validation-message" th:errors="*{status}"></label>
+							</div>
+						</div>
+						<div class="col-4 form-group">
+							<div class="input-group">
+								<input type="text" id="matricula" name="matricula" th:field="*{matricula}" class="form-control disabled-input" aria-describedby="btn-addon" placeholder="matrícula" readonly>
+								<button onclick="gerarMatricula()" class="btn btn-info" type="button" id="btn-addon" th:if="!*{id}">Gerar matrícula</button>
+							</div>
+							<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('matricula')}">
+								<label class="validation-message" th:errors="*{matricula}"></label>
+							</div>
+						</div>
+					</div>
+					<div class="row mt-3 text-center">
+						<div class="col">
+							<button class="ml-5 btn btn-outline-danger main-btn" type="button" onClick="window.history.go(-1); return false;">Cancelar</button>
+							<button class="btn btn-outline-success main-btn" type="submit"> <span th:text="*{id} ? 'Salvar aluno':'Gerar aluno' ">Gerar aluno</span></button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+	<div th:replace="fragments/fragment :: footer"></div>
+</body>
+</html>

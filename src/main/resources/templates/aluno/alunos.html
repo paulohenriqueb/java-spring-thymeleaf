@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/fragment :: headFragment (pageTitle = 'Alunos cadastrados')">
+
+</head>
+<body>
+	<div th:replace="fragments/fragment :: header"></div>
+	<section class="container new-section">
+		<div class="row">
+			<div class="col">
+				<h2 class="text-center mt-3 mb-3">Listagem de alunos</h2>
+				<table class="table table-dark">
+					<thead>
+					    <tr>
+					      <th scope="col">Nome</th>
+					      <th scope="col">Curso</th>
+					      <th scope="col">Matrícula</th>
+					      <th scope="col">Turno</th>
+					      <th scope="col">Status</th>
+					      <th scope="col"></th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr scope="row" th:each="alunos: ${alunosList}">
+					    	<td th:text="${alunos.nome}"></td>
+					    	<td th:text="${alunos.curso.curso}"></td>
+					        <td th:text="${alunos.matricula}"></td>
+					        <td th:text="${alunos.turno.turno}">
+							<td th:text="${alunos.status.status}"></td>
+							<td align="center">
+								<a class="btn btn-outline-warning" th:href="@{/editar/{id}(id=${alunos.id})}">
+									<i class="fa fa-pencil"></i>
+								</a>
+								<a class="btn btn-outline-danger" th:href="@{/excluir/{id}(id=${alunos.id})}" onClick="return confirm('Deseja realmente excluir o aluno?')">
+									<i class="fa fa-trash"></i>
+								</a>
+							</td>
+					    </tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<button class="ml-5 btn btn-outline-danger main-btn" type="button" onclick="window.history.go(-1); return false;">Voltar</button>
+			</div>
+		</div>
+	</section>
+	<div th:replace="fragments/fragment :: footer"></div>
+</body>
+</html>

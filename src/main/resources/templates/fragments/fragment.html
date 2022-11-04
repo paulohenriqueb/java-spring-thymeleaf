@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headFragment (pageTitle)">
+	<title th:text="${pageTitle}">Projeto Academy</title>
+	<meta charset="UTF-8">
+	<meta name="author" content="Paulo Silva">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+	<!-- Cabeçalho -->
+	<header th:fragment="header">
+		<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+  			<div class="container">
+    			<a class="navbar-brand" th:href="@{/}">Navbar</a>
+    			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      				<span class="navbar-toggler-icon"></span>
+    			</button>
+   				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+   				
+      				<ul class="navbar-nav mb-lg-0 ms-auto mb-2" th:if="${session.usuarioLogado}">
+        				<li class="nav-item"><a class="nav-link" th:href="@{/index}"> <i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+        				<li class="nav-item"><a class="nav-link" th:href="@{/criar-alunos}"> <i class="fa fa-user" aria-hidden="true"></i> Cadastrar aluno</a></li>
+        				<li class="nav-item"><a class="nav-link" th:href="@{/filtro-alunos}"> <i class="fa fa-search" aria-hidden="true"></i> Pesquisar aluno</a></li>
+      					<li class="nav-item">
+      					<form action="/logout" method="POST">
+      						<button class="btn btn-outline-danger" type="submit"> <i class="fa fa-sign-out" aria-hidden="true"></i> Sair</button>
+      					</form>
+      					</li>
+      				</ul>
+			    </div>
+  			</div>
+		</nav>
+	</header>
+	
+	<!-- Rodapé -->
+	<footer class="container text-center" th:fragment="footer">
+		<div class="footer">
+			Todos os direitos reservado
+		</div>
+		<script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/js/main.js"></script>
+	</footer>
+	
+</body>
+</html>
