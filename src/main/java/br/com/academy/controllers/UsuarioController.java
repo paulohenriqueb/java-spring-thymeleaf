@@ -28,7 +28,7 @@ public class UsuarioController {
 	@GetMapping(value = {"/", "login"})
 	public ModelAndView login() {
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println(serviceUsuario.getSessionHTTP());
+		System.out.println(ServiceUsuario.getSessionHTTP());
 		
 		modelAndView.setViewName(checkLogin("redirect:/index"));
 		
@@ -39,9 +39,7 @@ public class UsuarioController {
 	@GetMapping("/cadastro")
 	public ModelAndView cadastrar() {
 		ModelAndView modelAndView = new ModelAndView();
-		
-		modelAndView.setViewName(checkLogin("login/cadastro"));
-		
+		modelAndView.setViewName("login/cadastro");
 		modelAndView.addObject("usuario", new Usuario());
 		return modelAndView;
 	}
@@ -66,8 +64,8 @@ public class UsuarioController {
 			modelAndView.addObject("msg", "Usuario não encontrado tente novamente");
 		}else {
 			session.setAttribute("usuarioLogado", usuarioLogin);
-			serviceUsuario.setSessionHTTP(session);
-			return index(serviceUsuario.getSessionHTTP());
+			ServiceUsuario.setSessionHTTP(session);
+			return index(ServiceUsuario.getSessionHTTP());
 		}
 		return modelAndView;
 	}
@@ -87,12 +85,12 @@ public class UsuarioController {
 	@PostMapping("/logout")
 	public ModelAndView logout(HttpSession session) {
 		session.invalidate();
-		serviceUsuario.setSessionHTTP(null);
+		ServiceUsuario.setSessionHTTP(null);
 		return login();
 	}
 	
-	public String checkLogin(String parametro) {
-		if(serviceUsuario.getSessionHTTP() != null) {
+	public static String checkLogin(String parametro) {
+		if(ServiceUsuario.getSessionHTTP() != null) {
 			return parametro;
 		}
 		return "login/login";

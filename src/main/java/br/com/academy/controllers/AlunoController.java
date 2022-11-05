@@ -23,17 +23,14 @@ public class AlunoController {
 	
 	@Autowired
 	private AlunoDAO alunoDaoRepositorio;
-	
-	@Autowired
-	private ServiceUsuario serviceUsuario;
-	
+		
 	@GetMapping("/criar-alunos")
 	public ModelAndView insertAlunos(Aluno aluno) {
 		ModelAndView modelAndView = new ModelAndView();
-		if(serviceUsuario.getSessionHTTP() == null) {
+		if(ServiceUsuario.getSessionHTTP() == null) {
 			modelAndView.addObject("usuario", new Usuario());
 		}
-		modelAndView.setViewName(checkLogin("aluno/formAluno"));
+		modelAndView.setViewName(UsuarioController.checkLogin("aluno/formAluno"));
 		modelAndView.addObject("aluno", new Aluno());
 		return modelAndView;
 	}
@@ -55,10 +52,10 @@ public class AlunoController {
 	@GetMapping("/alunos")
 	public ModelAndView listAlunos() {
 		ModelAndView modelAndView = new ModelAndView();
-		if(serviceUsuario.getSessionHTTP() == null) {
+		if(ServiceUsuario.getSessionHTTP() == null) {
 			modelAndView.addObject("usuario", new Usuario());
 		}
-		modelAndView.setViewName(checkLogin("aluno/alunos"));
+		modelAndView.setViewName(UsuarioController.checkLogin("aluno/alunos"));
 		modelAndView.addObject("alunosList", alunoDaoRepositorio.findAll());
 		return modelAndView;
 	}
@@ -66,10 +63,10 @@ public class AlunoController {
 	@GetMapping("/editar/{id}")
 	public ModelAndView editar(@PathVariable("id") Integer id) {
 		ModelAndView modelAndView = new ModelAndView();
-		if(serviceUsuario.getSessionHTTP() == null) {
+		if(ServiceUsuario.getSessionHTTP() == null) {
 			modelAndView.addObject("usuario", new Usuario());
 		}
-		modelAndView.setViewName(checkLogin("aluno/formAluno"));
+		modelAndView.setViewName(UsuarioController.checkLogin("aluno/formAluno"));
 		Aluno aluno = alunoDaoRepositorio.getReferenceById(id);
 		modelAndView.addObject("aluno", aluno);
 		return modelAndView;
@@ -85,7 +82,7 @@ public class AlunoController {
 	
 	@GetMapping("excluir/{id}")
 	public String excluir(@PathVariable("id") Integer id) {
-		if(serviceUsuario.getSessionHTTP() == null) {
+		if(ServiceUsuario.getSessionHTTP() == null) {
 			return "redirect:/login";
 		}
 		alunoDaoRepositorio.deleteById(id);
@@ -95,10 +92,10 @@ public class AlunoController {
 	@GetMapping("filtro-alunos")
 	public ModelAndView filtrosAlunos() {
 		ModelAndView modelAndView = new ModelAndView();
-		if(serviceUsuario.getSessionHTTP() == null) {
+		if(ServiceUsuario.getSessionHTTP() == null) {
 			modelAndView.addObject("usuario", new Usuario());
 		}
-		modelAndView.setViewName(checkLogin("aluno/filtro-aluno"));
+		modelAndView.setViewName(UsuarioController.checkLogin("aluno/filtro-aluno"));
 		modelAndView.addObject("aluno", new Aluno());
 		return modelAndView;
 	}
@@ -106,10 +103,10 @@ public class AlunoController {
 	@GetMapping("status/{status}")
 	public ModelAndView alunosStatus(@PathVariable("status") String status) {
 		ModelAndView modelAndView = new ModelAndView();
-		if(serviceUsuario.getSessionHTTP() == null) {
+		if(ServiceUsuario.getSessionHTTP() == null) {
 			modelAndView.addObject("usuario", new Usuario());
 		}
-		modelAndView.setViewName(checkLogin("aluno/alunos"));
+		modelAndView.setViewName(UsuarioController.checkLogin("aluno/alunos"));
 		switch (status.toLowerCase()) {
 			case "ativo": 
 				modelAndView.addObject("alunosList", alunoDaoRepositorio.findStatusAtivo());
@@ -143,13 +140,5 @@ public class AlunoController {
 		modelAndView.addObject("alunosList", listAlunos);
 		modelAndView.setViewName("aluno/alunos");
 		return modelAndView;
-	}
-
-	public String checkLogin(String parametro) {
-		if(serviceUsuario.getSessionHTTP() != null) {
-			return parametro;
-		}
-		return "login/login";
-	}
-	
+	}	
 }
