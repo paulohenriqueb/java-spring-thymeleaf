@@ -19,7 +19,7 @@ public class ServiceUsuario {
 	@Autowired
 	private UsuarioDAO usuarioDaoResitorio;
 	
-	private HttpSession sessionHTTP;
+	private static HttpSession sessionHTTP;
 	public void salvarUsuario(Usuario usuario) throws Exception{
 		try {
 			if(usuarioDaoResitorio.findByEmail(usuario.getEmail()) != null) {
@@ -36,14 +36,12 @@ public class ServiceUsuario {
 		Usuario usuarioLogin = usuarioDaoResitorio.buscarLogin(email, senha);
 		return usuarioLogin;
 	}
-
-	public HttpSession getSessionHTTP() {
+	
+	public static HttpSession getSessionHTTP() {
 		return sessionHTTP;
 	}
 
-	public void setSessionHTTP(HttpSession httpSession) {
-		this.sessionHTTP = httpSession;
+	public static void setSessionHTTP(HttpSession httpSession) {
+		sessionHTTP = httpSession;
 	}
-	
-	
 }
